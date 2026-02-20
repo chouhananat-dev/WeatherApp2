@@ -18,6 +18,12 @@ import visibility from './images/weather.png'
 import cloud from './images/clouds.png'
 import logo from './images/logo.png'
 import name from './images/name.png'
+import smile from './images/smile.png'
+import sad from './images/sad.png'
+import cycling from './images/bicycle.png'
+import running from './images/running.png'
+import gardening from './images/gardening.png'
+
 const App = () => {
   const [city, setcity] = useState('');
   const [weather, setweather] = useState(null);
@@ -134,6 +140,33 @@ const App = () => {
     }
   }
 }
+const getGardening = () =>{
+  if(weather){
+    return{
+      title:"Gardening",
+      head:weather.main?.humidity>80 && (weather.weather?.[0].main.toLowerCase()==='rain' ||weather.weather?.[0].main.toLowerCase()==='thunderstorm') && (25<=Math.abs((weather.main?.temp-273.15)) || 17>=Math.abs((weather.main?.temp-273.15))) ? "Poor":"Good",
+      tip:weather.main?.humidity>80 && (weather.weather?.[0].main.toLowerCase()==='rain' ||weather.weather?.[0].main.toLowerCase()==='thunderstorm') && (25<=Math.abs((weather.main?.temp-273.15)) || 17>=Math.abs((weather.main?.temp-273.15))) ? "Poor weather for gardening right now!":"Good weather for gardening right now!",
+    }
+  }
+}
+const getCycling = () =>{
+  if (weather){
+    return{
+      title:"Cycling",
+      head:weather.visibility>=2000 && weather.weather?.[0].main.toLowerCase()=== 'clear' && Math.abs(weather.main?.temp-273.15 - weather.main?.feels_like-273.15)<5 && weather.main?.humidity<=50 && getWindSpeed(weather.wind?.speed)<15 ? "Good": "Poor",
+      tip:weather.visibility>=2000 && weather.weather?.[0].main.toLowerCase()=== 'clear' && Math.abs(weather.main?.temp-273.15 - weather.main?.feels_like-273.15)<5 && weather.main?.humidity<=50 && getWindSpeed(weather.wind?.speed)<15 ? "Good weather for cycling right now!": "Poor weather of cycling right now!",      
+    }
+  }
+}
+const getRunning = () =>{
+  if (weather){
+    return{
+      title:"Running",
+      head:weather.visibility>=2000 && weather.weather?.[0].main.toLowerCase()=== 'clear' && Math.abs(weather.main?.temp-273.15 - weather.main?.feels_like-273.15)<5 && weather.main?.humidity<=50 && getWindSpeed(weather.wind?.speed)<15 ? "Good": "Poor",
+      tip:weather.visibility>=2000 && weather.weather?.[0].main.toLowerCase()=== 'clear' && Math.abs(weather.main?.temp-273.15 - weather.main?.feels_like-273.15)<5 && weather.main?.humidity<=50 && getWindSpeed(weather.wind?.speed)<15 ? "Good weather for running right now!": "Poor weather for running right now!",
+    }
+  }
+}
 
   return (
     <div class='w-screen h-full bg-gradient-to-r from-blue-600 to-purple-700 pb-10'>
@@ -244,6 +277,56 @@ const App = () => {
             </div>
           </div>
         )}
+      </div>
+      <div className='max-w-100 ml-5 mr-5 md:ml-20 md:mr-20 lg:ml-40 lg:mr-40 mb-10 p-6 rounded-3xl bg-gray-800 bg-opacity-75 backdrop-blur-sm shadow-lg mt-10 grid grid-cols-3 gap-x-[28rem] overflow-x-auto lg:gap-x-20 md:gap-x-[23rem]' >
+        <div className='bg-green-900 bg-opacity-75 backdrop-blur-sm rounded-3xl p-4 shadow-lg flex w-[26rem] lg:w-80 md:w-80'>
+          <div className='inline-block'>
+            <h2 className='font-bold text-2xl'>{getCycling()?.title}</h2> 
+            <img src={cycling} alt='cycling' className='w-20'></img>
+            <p>{getCycling()?.tip}</p>
+          </div>
+          <div className='inline-block pl-20 text-center'>
+            {getCycling()?.head==="Good"?(
+              <img src={smile} alt='sad' className='w-10'></img>
+            )
+            :(
+              <img src={sad} alt='sad' className='w-10'></img>
+            )}
+          <h3>{getCycling()?.head}</h3>
+          </div>
+        </div>
+        <div className='bg-green-900 bg-opacity-75 backdrop-blur-sm rounded-3xl p-4 shadow-lg flex w-[26rem] lg:w-80 md:w-80'>
+          <div className='inline-block'>
+            <h2 className='font-bold text-2xl'>{getRunning()?.title}</h2> 
+            <img src={running} alt='running' className='w-20'></img>
+            <p>{getRunning()?.tip}</p>
+          </div>
+          <div className='inline-block pl-20 text-center'>
+            {getRunning()?.head==="Good" ? (
+              <img src={smile} alt='sad' className='w-10'></img>
+            )
+            :(
+              <img src={sad} alt='sad' className='w-10'></img>
+            )}
+          <h3>{getRunning()?.head}</h3>
+          </div>
+        </div>
+        <div className='bg-green-900 bg-opacity-75 backdrop-blur-sm rounded-3xl p-4 shadow-lg flex w-[26rem] lg:w-80 md:w-80'>
+          <div className='inline-block'>
+            <h2 className='font-bold text-2xl'>{getGardening()?.title}</h2> 
+            <img src={gardening} alt='gardening' className='w-20'></img>
+            <p>{getGardening()?.tip}</p>
+          </div>
+          <div className='inline-block pl-20 text-center'>
+            {getGardening()?.head==="Good"?(
+              <img src={smile} alt='sad' className='w-10'></img>
+            )
+            :(
+              <img src={sad} alt='sad' className='w-10'></img>
+            )}
+          <h3>{getGardening()?.head}</h3>
+          </div>
+        </div>
       </div>
       <div>
         {weather && (
