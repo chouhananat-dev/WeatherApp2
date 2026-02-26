@@ -1,9 +1,16 @@
 # WeatherApp2
 
-A small full-stack weather web app with a Vite + React frontend and an Express backend. The frontend fetches weather data from the backend, which in turn calls the OpenWeather API. 
+A full-stack weather application built with React + Vite frontend and Express backend that provides real-time weather information with an intuitive, visually appealing interface. The app fetches weather data from the OpenWeather API through a secure Express proxy server.
+
 ## Features
-- Current weather by geo-coordinates or city name
-- Visual, responsive UI with Tailwind CSS (via CDN)
+- **Geo-location weather lookup** — Automatically detect and display weather for user's current location
+- **City search** — Look up weather data by city name
+- **Real-time weather data** — Current temperature, conditions, wind speed, pressure, humidity, and visibility
+- **Visual weather backgrounds** — Dynamic background images that change based on weather conditions (clear, cloudy, rainy, thunderstorm, haze)
+- **Sunrise/Sunset times** — Display sunrise and sunset information for the current location
+- **Activity recommendations** — Personalized activity suggestions based on current weather (e.g., cycling, running, gardening)
+- **Responsive UI** — Clean, modern interface built with Material-UI components
+- **Mobile-friendly design** — Optimized for both desktop and mobile devices
 
 ## Repository Structure
 
